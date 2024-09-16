@@ -1,0 +1,5 @@
+<library path="lib/libLedStripDriver">
+  <class name="led_strip_driver/LedStripDriver" type="led_strip_driver::LedStripDriver" base_class_type="nodelet::Nodelet">
+    <description>LedStripDriver nodelet</description>
+  </class>
+</library>
