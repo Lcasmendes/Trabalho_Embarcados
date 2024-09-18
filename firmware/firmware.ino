@@ -31,6 +31,7 @@ struct __attribute__((__packed__)) heartbeat_msg
 #define EN_12V A3
 #define OUT_A 9     // PWM output A
 #define OUT_B 10    // PWM output B (not used for PWM control)
+#define OUT_VBAT A4  
 #define PWM_RESOLUTION 100  // PWM resolution (0-100%)
 
 #define TX_BUFFER_LEN 255
@@ -131,14 +132,21 @@ bool receive_message() {
  * @param pwm_a The duty cycle for OUT_A (0-100%).
  */
 void setPWM(uint8_t pwm_a) {
-  if (pwm_a > PWM_RESOLUTION) {
-    pwm_a = PWM_RESOLUTION;
+  // Garantir que o PWM seja pelo menos 80% do valor máximo
+  uint8_t min_pwm = PWM_RESOLUTION * 0.8;  // 80% do valor máximo, equivalente a 27V dos 34V que são o máximo. 
+  // Tentando garantir que não fique abaixo dessa tensão, pois abaixo dela o Led nao tem o funcionamento ideal
+
+  if (pwm_a < min_pwm) {
+    pwm_a = min_pwm;  // Se o valor for menor que 80%, ajuste para 80%
   }
 
-  // Set PWM duty cycle for OUT_A
+  if (pwm_a > PWM_RESOLUTION) {
+    pwm_a = PWM_RESOLUTION;  // Garante que o valor máximo não seja excedido
+  }
+
+  // Define o ciclo de trabalho do PWM para OUT_A
   OCR1A = PWM_RESOLUTION - pwm_a;
 }
-
 /**
  * Sends a heartbeat message over the serial line using the LLCP protocol.
  */
