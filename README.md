@@ -1,3 +1,15 @@
+## O trabalho contido nesse repositório foi elaborado para a disciplina de Projeto de Sistemas Embarcados do Departamento de Computação da Universidade Federal de São Carlos
+
+Ele consiste no sistema de controle de LEDs por sinais PWM para o sistema de iluminação de um drone UAV.
+
+Os dois principais códigos do projeto estão contidos nos diretórios firmware e firmware_without_ROS. O primeiro consiste em uma adaptação do código encontrado no repositório: https://github.com/ctu-mrs/mrs_module_led_strip_driver/blob/master/firmware/firmware.ino. 
+Esse repositório foi a base para o desenvolvimento do projeto, contendo a implementação do driver ROS e da mensageria entre ele e a placa embarcada. A adaptação do código firmware.ino foi feita para se adequar as necessidades desse projeto, onde apenas uma saida de PWM é necessária.
+
+Já o segundo diretório é uma implementação do firmware sem comunicação com o ROS, variando os valores de PWM com o tempo para alterar a luminosidade.
+
+O texto abaixo é o mesmo encontrado no repositório citado anteriormente, explicando o processo de setup do ROS.
+
+
 ## MRS LED strip module driver
 
 ROS driver for MRS LED module. This allows turning on and off the LED lights with the included 12V DC power outlets, as well as voltage output straight from the battery.
